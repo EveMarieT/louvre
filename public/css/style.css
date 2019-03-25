@@ -1,0 +1,23 @@
+body {
+    background-color: #ffffdd;
+}
+
+
+.table {
+    border-collapse:collapse;
+
+}
+th, td {
+    border: 1px solid black;
+}
+td {
+    text-align: center;
+}
+#order .btn {
+    align-content: center;
+}
+
+footer {
+    display: flex;
+    align-content: space-between;
+}

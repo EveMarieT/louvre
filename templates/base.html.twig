@@ -1,12 +1,87 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
-    </body>
+<html lang="{{ app.request.locale}}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>{% block title %}Billetterie du Louvre{% endblock %}</title>
+    {% block stylesheets %}
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+              rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+              crossorigin="anonymous">
+        <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    {% endblock %}
+
+
+</head>
+<body>
+
+<header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="{{ path('home') }}">Billetterie du louvre</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Commander</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Contact</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">CGV</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">FAQ</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Langue
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="#">Français</a>
+                        <a class="dropdown-item" href="#">English</a>
+                    </div>
+                </li>
+        </div>
+    </nav>
+</header>
+<div class="container">
+    {% block body %}
+
+    {% endblock %}
+</div>
+
+<footer>
+
+    <div class="container text-center">
+        <nav class="navbar fixed-bottom navbar-light bg-light">
+            <div class="row">
+                <div class="text-center col-md-4">
+                    <p class="small">Paiement sécurisé à 100%</p>
+                </div>
+                <div class="text-center col-md-4">
+                    <img src="{{ asset('img/mastercard.gif') }}">
+                    <img src="{{ asset('img/visa.gif') }}">
+                    <img src="{{ asset('img/ebleue.gif') }}">
+                </div>
+                <div class="text-center col-md-4">
+                    <p class="small">2019 - Réalisé par ©WebInSel - P4_OpenClassrooms</p>
+                </div>
+            </div>
+        </nav>
+    </div>
+
+</footer>
+
+{% block javascripts %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"
+            integrity="sha384-xrRywqdh3PHs8keKZN+8zzc5TX0GRTLCcmivcbNJWm2rs5C8PRhcEn3czEjhAO9o"
+            crossorigin="anonymous">
+    </script>
+{% endblock %}
+</body>
 </html>

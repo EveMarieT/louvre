@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Billetterie du Louvre{% endblock %}
+
+
+
+{% block body %}
+
+        <p>Bienvenue sur le site de la billetterie du Louvre</p>
+
+        <p>Les tarifs</p>
+    <div class="row">
+        <div class="col-sm-8 offset-sm-2">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col"></th>
+                        <th scope="col">Normal</th>
+                        <th scope="col">Enfant</th>
+                        <th scope="col">Senior</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <th scope="row">Journée</th>
+                        <td>16 €</td>
+                        <td>8 €</td>
+                        <td>12 €</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Demi-journée</th>
+                        <td>8 €</td>
+                        <td>4 €</td>
+                        <td>6 €</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+
+        <div id="order">
+            <button type="button" class="btn btn-warning btn-lg btn-block">Acheter vos billets</button>
+        </div>
+{% endblock %}
