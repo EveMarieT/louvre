@@ -17,6 +17,14 @@ td {
     align-content: center;
 }
 
+.note {
+    background-color: #ffffdd;
+    border: 1px solid #CCCCCC;
+    border-collapse: collapse;
+    padding: 0.5em;
+    display: inline;
+}
+
 footer {
     display: flex;
     align-content: space-between;
