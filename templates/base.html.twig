@@ -1,31 +1,33 @@
 <!DOCTYPE html>
-<html lang="{{ app.request.locale}}">
+<html lang="{{ app.request.locale }}" class="h-100">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>{% block title %}Billetterie du Louvre{% endblock %}</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+          crossorigin="anonymous">
     {% block stylesheets %}
-        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-              rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-              crossorigin="anonymous">
+
         <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     {% endblock %}
 
 
 </head>
-<body>
+<body class="d-flex flex-column h-100">
 
 <header>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="{{ path('home') }}">Billetterie du louvre</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Commander</a>
+                    <a class="nav-link" href="{{ path ('order_step_1') }}">Commander</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ path ('contact') }}">Contact</a>
@@ -37,7 +39,8 @@
                     <a class="nav-link" href="{{ path ('faq') }}">FAQ</a>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Langue
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
@@ -45,33 +48,33 @@
                         <a class="dropdown-item" href="#">English</a>
                     </div>
                 </li>
+            </ul>
         </div>
     </nav>
 </header>
-<div class="container">
-    {% block body %}
 
-    {% endblock %}
-</div>
 
-<footer>
+<main class="flex-shrink-0">
+    <div class="container">
+        {% block body %}
 
-    <div class="container text-center">
-        <nav class="navbar fixed-bottom navbar-light bg-light">
-            <div class="row">
-                <div class="text-center col-md-4">
-                    <p class="small">Paiement sécurisé à 100%</p>
-                </div>
-                <div class="text-center col-md-4">
-                    <img src="{{ asset('img/mastercard.gif') }}">
-                    <img src="{{ asset('img/visa.gif') }}">
-                    <img src="{{ asset('img/ebleue.gif') }}">
-                </div>
-                <div class="text-center col-md-4">
-                    <p class="small">2019 - Réalisé par ©WebInSel - P4_OpenClassrooms</p>
-                </div>
-            </div>
-        </nav>
+        {% endblock %}
+    </div>
+</main>
+
+<footer class="container-fluid mt-auto bg-light py-1">
+    <div class="row">
+        <div class="text-center col-md-4">
+            <p class="small">Paiement sécurisé à 100%</p>
+        </div>
+        <div class="text-center col-md-4">
+            <img src="{{ asset('img/mastercard.gif') }}">
+            <img src="{{ asset('img/visa.gif') }}">
+            <img src="{{ asset('img/ebleue.gif') }}">
+        </div>
+        <div class="text-center col-md-4">
+            <p class="small">2019 - Réalisé par ©WebInSel - P4_OpenClassrooms</p>
+        </div>
     </div>
 
 </footer>

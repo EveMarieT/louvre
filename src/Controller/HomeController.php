@@ -19,7 +19,7 @@ class HomeController extends AbstractController
     }
 
     /**
-     * @Route("/Contact", name="contact")
+     * @Route("/contact", name="contact")
      */
     public function showContact()
     {
@@ -29,7 +29,7 @@ class HomeController extends AbstractController
     }
 
     /**
-     * @Route("/Faq", name="faq")
+     * @Route("/faq", name="faq")
      */
     public function showFaq()
     {
@@ -39,7 +39,7 @@ class HomeController extends AbstractController
     }
 
     /**
-     * @Route("/CGV", name="cgv")
+     * @Route("/cgv", name="cgv")
      */
     public function showCgv()
     {
@@ -47,4 +47,5 @@ class HomeController extends AbstractController
             'controller_name' => 'HomeController',
         ]);
     }
+
 }
