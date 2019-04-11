@@ -22,8 +22,12 @@ class TicketType extends AbstractType
                 'widget' => 'single_text'
             ])
             ->add('country', CountryType::class)
-            ->add('reducedPrice', CheckboxType::class)
-        ;
+            ->add('reducedPrice', null, [
+                'label' => 'Tarif reduit',
+                    'required' => false,
+
+            ]);
+
     }
 
     public function configureOptions(OptionsResolver $resolver)
