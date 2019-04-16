@@ -5,12 +5,16 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\BookingRepository")
  */
 class Booking
 {
+
+    const MAX_NB_TICKETS = 10;
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -30,6 +34,7 @@ class Booking
 
     /**
      * @ORM\Column(type="integer")
+     *
      */
     private $numberOfPeople;
 
@@ -111,6 +116,7 @@ class Booking
 
     public function addTicket(Ticket $ticket): self
     {
+
         if (!$this->tickets->contains($ticket)) {
             $this->tickets[] = $ticket;
             $ticket->setBooking($this);
@@ -131,4 +137,5 @@ class Booking
 
         return $this;
     }
+
 }

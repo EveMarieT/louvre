@@ -6,9 +6,10 @@
     <section class="pt-3">
 
         {{ form_start(form) }}
+        {% for i in form %}
 
-        {{ form_widget(form) }}
-
+            {{ form_widget(form) }}
+        {% endfor %}
         <button type="submit">Valider</button>
 
         {{ form_end(form) }}

@@ -9,7 +9,6 @@ class PriceCalculator
     public function computePrice(Booking $booking)
     {
 
-
         return $booking;
     }
 }

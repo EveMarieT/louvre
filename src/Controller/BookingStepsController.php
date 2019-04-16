@@ -25,15 +25,16 @@ class BookingStepsController extends AbstractController
     public function init(SessionInterface $session, Request $request)
     {
         $booking = new Booking();
+
         $form = $this->createForm(BookingType::class, $booking);
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            // TODO voir comment faire pour ajouter n ticket
-
-
+            for ($i = 0; $i < $booking->getNumberOfPeople(); $i++) {
+                $booking->addTicket(new Ticket());
+            }
             $session->set('booking', $booking);
 
             return $this->redirectToRoute('order_step_2');
