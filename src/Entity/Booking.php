@@ -15,6 +15,7 @@ class Booking
 
     const MAX_NB_TICKETS = 10;
     const NORMAL_DAY = 18;
+    const SENIOR_DAY = 12;
     const FREE = 0;
     const CHILD_DAY = 8;
     const TYPE_LABEL_DAY = "Journée";
