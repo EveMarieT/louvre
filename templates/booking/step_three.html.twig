@@ -2,12 +2,47 @@
 
 {% block title %}Commander un billet{% endblock %}
 {% block body %}
-    <h1 class="pt-3">Finaliser votre commande</h1>
+    <h1 class="pt-3">Récapitulatif de votre commande</h1>
     <section class="pt-3">
 
+        Vous avez commandé le(s) billet(s) suivant(s) :
+
+       <p>Votre visite aura lieu le {{ booking.dateOfVisit| date('d-m-Y') }}
+           et vos billets sont valables pour la {{ booking.periodLabel }}</p>
+
+        <div class="table-responsive-sm">
+
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th scope="col"></th>
+                    <th scope="col">Nom</th>
+                    <th scope="col">Prénom</th>
+                    <th scope="col">Prix</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for ticket in booking.tickets %}
+                    <tr>
+                        <th scope="row">{{ booking.numberOfPeople }}</th>
+                        <td>{{ ticket.name }}</td>
+                        <td>{{ ticket.firstName }}</td>
+                        <td>{{ ticket.age }}</td>
+                    </tr>
+                {% endfor %}
+                <tr>
+
+                </tbody>
+            </table>
+
+        </div>
 
 
-        <button type="submit">Valider</button>
+            <div class="col-4">
+                <button type="submit">Valider</button>
+            </div>
+
+
 
 
 

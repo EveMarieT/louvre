@@ -3,18 +3,17 @@
 namespace App\Controller;
 
 use App\Form\BookingTicketsType;
+use App\Entity\Ticket;
+use App\Entity\Booking;
+use App\Form\BookingType;
 use App\Service\PriceCalculator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
-use App\Entity\Ticket;
-use App\Entity\Booking;
-use App\Form\TicketType;
-use App\Form\BookingType;
+
 
 class BookingStepsController extends AbstractController
 {
@@ -60,7 +59,7 @@ class BookingStepsController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
 
             //TODO calcul du prix
-            $calculator->computePrice($booking);
+            $calculator->computeBookingPrice($booking);
 
             return $this->redirectToRoute('order_step_3');
         }
@@ -76,7 +75,21 @@ class BookingStepsController extends AbstractController
 
     public function summary(SessionInterface $session, Request $request)
     {
-        return $this->render('booking/step_three.html.twig');
-    }
+        $booking = $session->get('booking');
 
+
+
+            return $this->render('booking/step_three.html.twig', [
+                'booking' => $booking
+            ]);
+
+    }
+    /**
+     * @Route("/finalisation", name="finish")
+     */
+
+    public function finish(SessionInterface $session, Request $request)
+    {
+        return $this->render('booking/finish.html.twig');
+    }
 }

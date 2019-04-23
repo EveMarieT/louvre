@@ -21,10 +21,10 @@ class BookingType extends AbstractType
             ])
             ->add('period', ChoiceType::class, [
                 'label' => 'Type de billet',
-                'choices' => [
-                    'Journée' => true,
-                    'Demi-journée' => false,
-                ],
+                'choices' => array(
+                    Booking::TYPE_LABEL_DAY => true,
+                    Booking::TYPE_LABEL_HALF_DAY => false,
+                ),
             ])
             ->add('numberOfPeople', IntegerType::class, [
                 'label' => 'Nombre de personne',

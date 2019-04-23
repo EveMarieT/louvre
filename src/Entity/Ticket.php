@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\TicketRepository")
@@ -40,6 +41,11 @@ class Ticket
      * @ORM\Column(type="boolean")
      */
     private $reducedPrice;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $price = 0;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Booking", inversedBy="tickets")
@@ -122,5 +128,27 @@ class Ticket
         $this->booking = $booking;
 
         return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPrice()
+    {
+        return $this->price;
+    }
+
+    /**
+     * @param mixed $price
+     */
+    public function setPrice($price)
+    {
+        $this->price = $price;
+    }
+
+
+    public function getAge()
+    {
+        return $this->getDateOfBirth()->diff($this->getBooking()->getDateOfVisit())->y;
     }
 }

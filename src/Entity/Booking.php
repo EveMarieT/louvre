@@ -14,6 +14,11 @@ class Booking
 {
 
     const MAX_NB_TICKETS = 10;
+    const NORMAL_DAY = 18;
+    const FREE = 0;
+    const CHILD_DAY = 8;
+    const TYPE_LABEL_DAY = "Journée";
+    const TYPE_LABEL_HALF_DAY = "Demi-journée";
 
     /**
      * @ORM\Id()
@@ -42,6 +47,11 @@ class Booking
      * @ORM\Column(type="string", length=255)
      */
     private $email;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $price = 0;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Ticket", mappedBy="booking", orphanRemoval=true)
@@ -73,6 +83,11 @@ class Booking
     public function getPeriod(): ?bool
     {
         return $this->period;
+    }
+
+    public function getPeriodLabel(): string
+    {
+        return $this->period ? self::TYPE_LABEL_DAY : self::TYPE_LABEL_HALF_DAY;
     }
 
     public function setPeriod(bool $period): self
@@ -137,5 +152,22 @@ class Booking
 
         return $this;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getPrice()
+    {
+        return $this->price;
+    }
+
+    /**
+     * @param mixed $price
+     */
+    public function setPrice($price)
+    {
+        $this->price = $price;
+    }
+
 
 }
