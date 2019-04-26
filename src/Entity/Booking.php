@@ -52,7 +52,7 @@ class Booking
     /**
      * @ORM\Column(type="integer")
      */
-    private $price = 0;
+    private $price;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Ticket", mappedBy="booking", orphanRemoval=true)

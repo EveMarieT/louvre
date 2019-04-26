@@ -58,7 +58,7 @@ class BookingStepsController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            //TODO calcul du prix
+
             $calculator->computeBookingPrice($booking);
 
             return $this->redirectToRoute('order_step_3');
@@ -78,18 +78,25 @@ class BookingStepsController extends AbstractController
         $booking = $session->get('booking');
 
 
-
             return $this->render('booking/step_three.html.twig', [
                 'booking' => $booking
             ]);
 
+
     }
     /**
-     * @Route("/finalisation", name="finish")
+     * @Route("/finalisation", name="payment")
      */
 
-    public function finish(SessionInterface $session, Request $request)
+    public function payment(SessionInterface $session, Request $request)
     {
-        return $this->render('booking/finish.html.twig');
+        $booking = $session->get('booking');
+
+
+           return $this->render('booking/payment.html.twig', [
+               'booking' => $booking
+           ]);
+
+
     }
 }

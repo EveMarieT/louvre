@@ -10,10 +10,11 @@ class PriceCalculator
 {
     public function computeBookingPrice(Booking $booking)
     {
-
+        $totalPrice = 0;
         foreach ($booking->getTickets() as $ticket){
             $totalPrice +=  $this->computeTicketPrice($ticket);
-    dump($totalPrice);
+            $booking->setPrice($totalPrice);
+
         }
 
         return $booking;
@@ -29,7 +30,7 @@ class PriceCalculator
 
         // selon l'âge tel tarif s'applique
         $age = $ticket->getAge();
-        $price = $ticket->getPrice();
+        $price = 0;
 
         // si $age est compris entre 0 et 3 alors $age = const FREE
         // si $age est compris entre 4 et 11 alors $age = const CHILD_DAY
@@ -46,6 +47,8 @@ class PriceCalculator
         } else {
             echo "Il semble qu'une erreur se soit produite, merci de vérifier votre date de naissance";
         }
+
+        $ticket->setPrice($price);
 
 
         return $price;
