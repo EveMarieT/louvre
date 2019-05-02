@@ -9,19 +9,20 @@
                 <div class="col-xs-12">
                     <h1 class="checkout-header">Finaliser votre commande</h1>
                 </div>
-                Votre commandée est validée, merci de procéder au paiement
+
                 <div class="col-xs-12 col-sm-6">
                     <table class="table table-bordered">
+
                         <thead>
                         <tr>
-                            <th class="col-xs-6 active">Product</th>
-                            <th class="col-xs-3 active text-center">Price</th>
+                            <th class="col-xs-6 active">Nom Prénom</th>
+                            <th class="col-xs-3 active text-center">Prix</th>
                         </tr>
                         </thead>
                         <tbody>
-                        {% for ticket in booking.tickets  %}
+                        {% for ticket in booking.tickets %}
                             <tr>
-                                <th class="col-xs-6 checkout-product-name">{{ ticket.name }}</th>
+                                <th class="col-xs-6 checkout-product-name">{{ ticket.name }} {{ ticket.firstName }}</th>
                                 <td class="col-xs-3">${{ ticket.price }}</td>
                             </tr>
                         {% endfor %}
@@ -29,23 +30,13 @@
                         <tfoot>
                         <tr>
                             <th class="col-xs-6 info">Total</th>
-                            <td class="col-xs-3 info checkout-total">${{ booking.price }}</td>
+                            <td class="col-xs-3 info checkout-total">€{{ booking.price }}</td>
                         </tr>
                         </tfoot>
                     </table>
                 </div>
                 <div class="col-xs-12 col-sm-6">
-                    <form action="" method="POST">
-                        <script
-                                src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-                                data-key="pk_test_ZRJFa0Zmp708tIkrvO4pqUn400kwyrqAW3"
-                                data-amount="{{ booking.price * 100 }}"
-                                data-name="Billetterie du Louvre"
-                                data-description="Projet 4"
-                                data-image="/img/documentation/checkout/marketplace.png"
-                                data-locale="auto">
-                        </script>
-                    </form>
+
                 </div>
             </div>
         </div>

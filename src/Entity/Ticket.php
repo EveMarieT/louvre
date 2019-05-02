@@ -45,7 +45,7 @@ class Ticket
     /**
      * @ORM\Column(type="integer")
      */
-    private $price;
+    private $price = 0;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Booking", inversedBy="tickets")

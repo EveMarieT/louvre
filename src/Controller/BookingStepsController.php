@@ -7,6 +7,7 @@ use App\Entity\Ticket;
 use App\Entity\Booking;
 use App\Form\BookingType;
 use App\Service\PriceCalculator;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -41,6 +42,7 @@ class BookingStepsController extends AbstractController
 
         return $this->render('booking/step_one.html.twig', [
             'form' => $form->createView(),
+
         ]);
 
     }
@@ -66,37 +68,62 @@ class BookingStepsController extends AbstractController
 
         return $this->render('booking/step_two.html.twig', [
             'form' => $form->createView(),
+
         ]);
     }
 
     /**
      * @Route("/recapitulatif", name="order_step_3")
+     * @Method("POST")
      */
 
-    public function summary(SessionInterface $session, Request $request)
+    public function summary(SessionInterface $session, Request $request, $stripePrivateKey)
     {
         $booking = $session->get('booking');
 
+        if ($request->isMethod('POST')) {
+            $token = $request->request->get('stripeToken');
 
-            return $this->render('booking/step_three.html.twig', [
-                'booking' => $booking
+            \Stripe\Stripe::setApiKey($stripePrivateKey);
+
+
+            $token = $_POST['stripeToken'];
+            $charge = \Stripe\Charge::create([
+                'amount' => $booking->getPrice() * 100,
+                'currency' => 'eur',
+                'description' => 'Commande billets',
+                'source' => $token,
             ]);
 
 
+            $charge['id']; // => si ok charge ok vaut transaction_id
+
+
+            return $this->redirectToRoute('finish');
+
+        }
+
+        return $this->render('booking/step_three.html.twig', [
+            'booking' => $booking
+        ]);
+
+//flush/persist etc....
     }
+
     /**
-     * @Route("/finalisation", name="payment")
+     * @Route("/finalisation", name="finish")
+     * @Method("GET")
      */
 
-    public function payment(SessionInterface $session, Request $request)
+    public function finish(SessionInterface $session, Request $request)
     {
         $booking = $session->get('booking');
 
 
-           return $this->render('booking/payment.html.twig', [
-               'booking' => $booking
-           ]);
+        return $this->render('booking/finish.html.twig', array(
+            'booking' => $booking,
 
+        ));
 
     }
 }

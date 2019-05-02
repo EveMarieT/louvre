@@ -14,10 +14,15 @@ class Booking
 {
 
     const MAX_NB_TICKETS = 10;
+    const MIN_NB_TICKETS = 1;
     const NORMAL_DAY = 18;
     const SENIOR_DAY = 12;
     const FREE = 0;
     const CHILD_DAY = 8;
+    const NORMAL_HALF_DAY = 9;
+    const SENIOR_HALF_DAY = 6;
+    const CHILD_HALF_DAY = 4;
+    const REDUCED_PRICE = 10;
     const TYPE_LABEL_DAY = "Journée";
     const TYPE_LABEL_HALF_DAY = "Demi-journée";
 
@@ -52,7 +57,7 @@ class Booking
     /**
      * @ORM\Column(type="integer")
      */
-    private $price;
+    private $price = 0;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Ticket", mappedBy="booking", orphanRemoval=true)

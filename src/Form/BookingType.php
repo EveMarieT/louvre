@@ -28,7 +28,8 @@ class BookingType extends AbstractType
             ])
             ->add('numberOfPeople', IntegerType::class, [
                 'label' => 'Nombre de personne',
-                'attr' => ['max' => Booking::MAX_NB_TICKETS]
+                'attr' => ['max' => Booking::MAX_NB_TICKETS,
+                            'min' => Booking::MIN_NB_TICKETS]
             ])
             ->add('email', EmailType::class);
 

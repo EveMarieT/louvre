@@ -46,8 +46,18 @@
 
 
     <div class="col-4">
-        <a href="{{ path('finish') }}" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">Valider</a>
-
+        <form action="" method="POST">
+            <script
+                    src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                    data-key="pk_test_ZRJFa0Zmp708tIkrvO4pqUn400kwyrqAW3"
+                    data-amount="{{ booking.price * 100 }}"
+                    data-name="Billetterie du Louvre"
+                    data-description="Projet 4"
+                    data-email="{{ booking.email }}"
+                    data-image="{{ asset('img/logo_Louvre.png') }}"
+                    data-locale="auto">
+            </script>
+        </form>
     </div>
 
 

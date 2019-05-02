@@ -31,7 +31,7 @@ class TicketType extends AbstractType
             ])
             ->add('reducedPrice', null, [
                 'label' => 'Tarif reduit',
-                    'required' => false,
+                'required' => false,
 
             ]);
 
