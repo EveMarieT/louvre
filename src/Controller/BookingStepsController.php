@@ -95,8 +95,12 @@ class BookingStepsController extends AbstractController
                 'source' => $token,
             ]);
 
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($booking);
+            $em->flush();
 
-            $charge['id']; // => si ok charge ok vaut transaction_id
+
+//            $charge['id']; // => si ok charge ok vaut transaction_id
 
 
             return $this->redirectToRoute('finish');
@@ -107,7 +111,7 @@ class BookingStepsController extends AbstractController
             'booking' => $booking
         ]);
 
-//flush/persist etc....
+
     }
 
     /**

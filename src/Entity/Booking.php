@@ -60,7 +60,7 @@ class Booking
     private $price = 0;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Ticket", mappedBy="booking", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\Ticket", mappedBy="booking", orphanRemoval=true, cascade={"persist"})
      */
     private $tickets;
 
