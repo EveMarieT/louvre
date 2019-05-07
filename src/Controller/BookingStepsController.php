@@ -7,6 +7,7 @@ use App\Entity\Ticket;
 use App\Entity\Booking;
 use App\Form\BookingType;
 use App\Service\PriceCalculator;
+use App\Service\Mailer;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -77,8 +78,9 @@ class BookingStepsController extends AbstractController
      * @Method("POST")
      */
 
-    public function summary(SessionInterface $session, Request $request, $stripePrivateKey)
+    public function summary(SessionInterface $session, Request $request, $stripePrivateKey, Mailer $mailer)
     {
+        /** @var Booking $booking */
         $booking = $session->get('booking');
 
         if ($request->isMethod('POST')) {
@@ -95,12 +97,14 @@ class BookingStepsController extends AbstractController
                 'source' => $token,
             ]);
 
+            $booking->setReference($charge['id']);
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($booking);
             $em->flush();
 
 
-//            $charge['id']; // => si ok charge ok vaut transaction_id
+            $mailer->sendMessage($booking);
 
 
             return $this->redirectToRoute('finish');
@@ -129,5 +133,18 @@ class BookingStepsController extends AbstractController
 
         ));
 
+    }
+
+    /**
+     * @Route("/registration", name="registration")
+     */
+    public function emailShow(SessionInterface $session, Request $request)
+    {
+
+        $booking = $session->get('booking');
+
+        return $this->render('emails/registration.html.twig', [
+            'booking' => $booking,
+        ]);
     }
 }

@@ -13,9 +13,9 @@ class PriceCalculator
         $totalPrice = 0;
         foreach ($booking->getTickets() as $ticket){
             $totalPrice +=  $this->computeTicketPrice($ticket);
-            $booking->setPrice($totalPrice);
 
         }
+        $booking->setPrice($totalPrice);
 
         return $booking;
     }
@@ -32,28 +32,27 @@ class PriceCalculator
         $price = 0;
         $age = $ticket->getAge();
         $free = $age < 4;
-        $child = $age > 3 && $age < 12;
-        $normal = $age > 11 && $age < 60;
-        $senior = $age > 59;
+        $child = $age >= 4 && $age < 12;
+        $normal = $age >=12 && $age < 60;
+        $senior = $age >= 60;
 
         $period = $ticket->getBooking()->getPeriodLabel();
 
         if ($free) {
             $price = Booking::FREE;
-        } elseif ($child && $period === Booking::TYPE_LABEL_DAY) {
+        } elseif ($child ) {
             $price = Booking::CHILD_DAY;
-        } elseif ($child && $period === Booking::TYPE_LABEL_HALF_DAY) {
-            $price = Booking::CHILD_HALF_DAY;
-        } elseif ($normal && $period === Booking::TYPE_LABEL_DAY) {
+        } elseif($normal){
             $price = Booking::NORMAL_DAY;
-        } elseif ($normal && $period === Booking::TYPE_LABEL_HALF_DAY) {
-            $price = Booking::NORMAL_HALF_DAY;
-        } elseif ($senior && $period === Booking::TYPE_LABEL_DAY) {
+        }  elseif ($senior) {
             $price = Booking::SENIOR_DAY;
-        } elseif ($senior && $period === Booking::TYPE_LABEL_HALF_DAY) {
-            $price = Booking::SENIOR_HALF_DAY;
-        } else {
-            echo "Il semble qu'une erreur se soit produite, merci de vérifier votre date de naissance";
+        }
+
+
+        //if()  TODO gestion du tarif reduit
+
+        if($period === Booking::TYPE_LABEL_HALF_DAY){
+            $price = $price * Booking::HALF_DAY_COEFF;
         }
 
         $ticket->setPrice($price);

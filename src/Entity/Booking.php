@@ -19,12 +19,10 @@ class Booking
     const SENIOR_DAY = 12;
     const FREE = 0;
     const CHILD_DAY = 8;
-    const NORMAL_HALF_DAY = 9;
-    const SENIOR_HALF_DAY = 6;
-    const CHILD_HALF_DAY = 4;
     const REDUCED_PRICE = 10;
     const TYPE_LABEL_DAY = "Journée";
     const TYPE_LABEL_HALF_DAY = "Demi-journée";
+    const HALF_DAY_COEFF = 0.5;
 
     /**
      * @ORM\Id()
@@ -54,6 +52,8 @@ class Booking
      */
     private $email;
 
+
+
     /**
      * @ORM\Column(type="integer")
      */
@@ -63,6 +63,11 @@ class Booking
      * @ORM\OneToMany(targetEntity="App\Entity\Ticket", mappedBy="booking", orphanRemoval=true, cascade={"persist"})
      */
     private $tickets;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $reference;
 
     public function __construct()
     {
@@ -127,6 +132,7 @@ class Booking
         return $this;
     }
 
+
     /**
      * @return Collection|Ticket[]
      */
@@ -174,6 +180,20 @@ class Booking
     {
         $this->price = $price;
     }
+
+    public function getReference(): ?string
+    {
+        return $this->reference;
+    }
+
+    public function setReference(string $reference): self
+    {
+        $this->reference = $reference;
+
+        return $this;
+    }
+
+
 
 
 }
