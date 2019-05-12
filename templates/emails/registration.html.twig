@@ -1,10 +1,45 @@
 <html lang="{{ app.request.locale }}">
 <body>
-Bonjour,
 
-Nous vous remercions pour votre commande ce courriel fera office de billet d'entrée`
+<img src="{{ asset('img/logo_Louvre.png') }}" alt="logo_du_louvre"><br>
+<p class="py-2">Bonjour,<br></p>
 
-Votre visite est prévue le {{ booking.dateOfVisit|date('d-m-Y') }}
+<p class="py-1"> Nous vous remercions pour votre commande ce courriel fera office de billet d'entrée<br></p>
+<p class="py-2">Pensez bien à vous munir de ce document lors de votre visite.<br>
+
+    Votre visite est prévue le <strong>{{ booking.dateOfVisit|date('d-m-Y') }}</strong></p>
+
+<div class="table-responsive-sm">
+    <table class="table table-borderless">
+
+            <thead>
+        <tr>
+            <th scope="col"></th>
+            <th scope="col">Type de billet</th>
+            <th scope="col">Nombre de billets</th>
+            <th scope="col">Référence</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <th scope="row"></th>
+            <td>{{ booking.periodLabel }}</td>
+            <td>{{ booking.numberOfPeople }}</td>
+            <td>{{ booking.reference }}</td>
+        </tr>
+
+        </tbody>
+
+    </table>
+
+</div>
+
+<p>Nous vous souhaitons une agréable visite et nous vous rappelons que :</p><br>
+<p class="pt-1">L'évacuation des salles commence une demie heure avant la fermeture.
+<br>Tout objet d’une taille supérieure à 55 x 35 x 20 cm ne sera pas accepté à
+    l’entrée de la Pyramide.</p>
+
+
 </body>
 </html>
 

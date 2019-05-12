@@ -2,11 +2,20 @@
 
 {% block title %}Commander un billet{% endblock %}
 {% block body %}
-    <h1 class="pt-3">Finaliser votre commande</h1>
+    <h2 class="pt-3">Votre commande a bien été enregistrée</h2>
     <section class="pt-3">
 
-       <p>Merci pour votre commande, vous recevrez par courriel votre code de commande sur l'adresse
-       que vous nous avez communiqué {{ booking.email }}</p>
+        <p class="text-sm-left">Merci pour votre commande, vous allez recevoir par courriel les éléments de votre commande
+            sur l'adresse que vous nous avez communiqué {{ booking.email }}.<br></p>
+
+        <p class="text-sm-left">
+            Si vous ne recevez pas le courriel de confirmation contactez-nous par le moyen de votre choix courriel ou
+            téléphone et communiquez-nous la référence de votre commande <strong>{{ booking.reference }}</strong><br></p>
+        <p class="text-sm-left"> - Contactez&nbsp;: <a href="mailto:assistance-billetterie@louvre.fr" rel="nofollow">assistance-billetterie@louvre.fr</a><br>
+            Tél. : +33 (0)1 40 20 53 17
+        </p>
+
+
 
     </section>
 {% endblock %}

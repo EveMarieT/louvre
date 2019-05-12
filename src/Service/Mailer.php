@@ -5,6 +5,7 @@ namespace  App\Service;
 use App\Entity\Booking;
 use Twig\Environment;
 
+
 class Mailer
 {
 
@@ -17,6 +18,14 @@ class Mailer
      */
     private $twig;
 
+    /**
+     * Mailer constructor.
+     * @param \Swift_Mailer $mailer
+     * @param Environment $twig
+     *
+     *
+     */
+
     public function __construct(\Swift_Mailer $mailer, Environment $twig)
     {
         $this->mailer = $mailer;
@@ -25,13 +34,15 @@ class Mailer
 
     public function sendMessage(Booking $booking)
     {
-        $message = new \Swift_Message("Votre reservation pour le musée");
+        $message = new \Swift_Message("Votre réservation pour le musée");
+
 
         try {
             $message
                 ->setFrom('monemail@louvre.fr')
                 ->setTo($booking->getEmail())
                 ->setBody(
+
                     $this->twig->render(
                         'emails/registration.html.twig', [
                             'booking' => $booking]
@@ -45,7 +56,7 @@ class Mailer
 
 
         $this->mailer->send($message);
-    //return $this->render('emails/registration.html.twig');
+
     }
 
 }
