@@ -6,6 +6,7 @@ use App\Form\BookingTicketsType;
 use App\Entity\Ticket;
 use App\Entity\Booking;
 use App\Form\BookingType;
+use App\Manager\BookingManager;
 use App\Service\PriceCalculator;
 use App\Service\Mailer;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -23,9 +24,9 @@ class BookingStepsController extends AbstractController
     /**
      * @Route("/initialiser-commande", name="order_step_1")
      */
-    public function init(SessionInterface $session, Request $request)
+    public function init(Request $request, BookingManager $bookingManager)
     {
-        $booking = new Booking();
+        $booking = $bookingManager->initBooking();
 
         $form = $this->createForm(BookingType::class, $booking);
 
@@ -33,10 +34,7 @@ class BookingStepsController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            for ($i = 0; $i < $booking->getNumberOfPeople(); $i++) {
-                $booking->addTicket(new Ticket());
-            }
-            $session->set('booking', $booking);
+            $bookingManager->generateEmptyTickets($booking);
 
             return $this->redirectToRoute('order_step_2');
         }
@@ -45,16 +43,16 @@ class BookingStepsController extends AbstractController
             'form' => $form->createView(),
 
         ]);
-
     }
 
     /**
      * @Route("/saisir-vos-billets", name="order_step_2")
      */
-    public function index(PriceCalculator $calculator, SessionInterface $session, Request $request)
+    public function index(PriceCalculator $calculator, BookingManager $bookingManager, Request $request)
     {
 
-        $booking = $session->get('booking');
+        $booking = $bookingManager->getCurrentBooking();
+
         $form = $this->createForm(BookingTicketsType::class, $booking);
 
         $form->handleRequest($request);
@@ -75,13 +73,12 @@ class BookingStepsController extends AbstractController
 
     /**
      * @Route("/recapitulatif", name="order_step_3")
-     * @Method("POST")
      */
 
-    public function summary(SessionInterface $session, Request $request, $stripePrivateKey, Mailer $mailer)
+    public function summary(BookingManager $bookingManager, Request $request, $stripePrivateKey, Mailer $mailer)
     {
-        /** @var Booking $booking */
-        $booking = $session->get('booking');
+
+        $booking = $bookingManager->getCurrentBooking();
 
         if ($request->isMethod('POST')) {
             $token = $request->request->get('stripeToken');
@@ -119,13 +116,12 @@ class BookingStepsController extends AbstractController
     }
 
     /**
-     * @Route("/finalisation", name="finish")
-     * @Method("GET")
+     * @Route("/finalisation", name="finish", methods={"GET"})
      */
 
-    public function finish(SessionInterface $session, Request $request)
+    public function finish(BookingManager $bookingManager, Request $request)
     {
-        $booking = $session->get('booking');
+        $booking = $bookingManager->getCurrentBooking();
 
 
         return $this->render('booking/finish.html.twig', array(
@@ -138,10 +134,10 @@ class BookingStepsController extends AbstractController
     /**
      * @Route("/registration", name="registration")
      */
-    public function emailShow(SessionInterface $session, Request $request)
+    public function emailShow(BookingManager $bookingManager , Request $request)
     {
 
-        $booking = $session->get('booking');
+        $booking = $bookingManager->getCurrentBooking();
 
         return $this->render('emails/registration.html.twig', [
             'booking' => $booking,

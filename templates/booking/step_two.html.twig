@@ -6,19 +6,13 @@
     <section class="pt-3">
 
         {{ form_start(form) }}
-        {% for i in form %}
-
-            {{ form_widget(form) }}
-
-
-
-
+        {% for formTicket in form.tickets %}
+            <h4>Billet n {{ loop.index }}</h4>
+            {{ form_widget(formTicket) }}
         {% endfor %}
         <button type="submit">Valider</button>
 
         {{ form_end(form) }}
-
-
 
 
     </section>
