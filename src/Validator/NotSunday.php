@@ -7,11 +7,11 @@ use Symfony\Component\Validator\Constraint;
 /**
  * @Annotation
  */
-class NotHoliday extends Constraint
+class NotSunday extends Constraint
 {
     /*
      * Any public properties become valid options for the annotation.
      * Then, use these in your validator class.
      */
-    public $message = 'Le musée est fermé ce jour férié.';
+    public $message = 'Le musée est fermé le dimanche';
 }
