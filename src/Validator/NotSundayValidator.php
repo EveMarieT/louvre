@@ -15,7 +15,7 @@ class NotSundayValidator extends ConstraintValidator
             throw new UnexpectedTypeException($value, \DateTimeInterface::class);
         }
 
-        if ($value->format('w') == 0 ) {
+        if ($value->format('w') === '0' ) {
 
             $this->context->buildViolation($constraint->message)
                 ->addViolation();

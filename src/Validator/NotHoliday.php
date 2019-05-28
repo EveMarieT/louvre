@@ -13,5 +13,5 @@ class NotHoliday extends Constraint
      * Any public properties become valid options for the annotation.
      * Then, use these in your validator class.
      */
-    public $message = 'Le musée est fermé ce jour férié.';
+    public $message = "Vous n/'avez pas la possibilité d/' acheter un billet pour le jour sélectionné.";
 }

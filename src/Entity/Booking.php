@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Validator\NotFull;
 use App\Validator\NotHoliday;
 use App\Validator\NotSunday;
 use App\Validator\NotTuesday;
@@ -12,6 +13,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\BookingRepository")
+ *
  */
 class Booking
 {

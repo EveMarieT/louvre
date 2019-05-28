@@ -26,9 +26,9 @@ class BookingRepository extends ServiceEntityRepository
     public function findByExampleField($value)
     {
         return $this->createQueryBuilder('b')
-            ->andWhere('b.exampleField = :val')
+            ->andWhere('b.nbOfPeople = :nbOfPeople')
             ->setParameter('val', $value)
-            ->orderBy('b.id', 'ASC')
+            ->orderBy('b.dateOfVisit')
             ->setMaxResults(10)
             ->getQuery()
             ->getResult()
