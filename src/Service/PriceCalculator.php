@@ -31,6 +31,7 @@ class PriceCalculator
         // selon l'âge tel tarif s'applique
         $price = 0;
         $age = $ticket->getAge();
+        $reduced_price = $ticket->getReducedPrice();
         $free = $age < 4;
         $child = $age >= 4 && $age < 12;
         $normal = $age >=12 && $age < 60;
@@ -40,6 +41,8 @@ class PriceCalculator
 
         if ($free) {
             $price = Booking::FREE;
+        }  elseif ($reduced_price) {
+            $price = Booking::REDUCED_PRICE;
         } elseif ($child ) {
             $price = Booking::CHILD_DAY;
         } elseif($normal){
@@ -47,9 +50,6 @@ class PriceCalculator
         }  elseif ($senior) {
             $price = Booking::SENIOR_DAY;
         }
-
-
-        //if()  TODO gestion du tarif reduit
 
         if($period === Booking::TYPE_LABEL_HALF_DAY){
             $price = $price * Booking::HALF_DAY_COEFF;
