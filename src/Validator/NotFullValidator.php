@@ -10,19 +10,36 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 class NotFullValidator extends ConstraintValidator
 {
+
+    /**
+     * @var BookingRepository
+     */
+    private $bookingRepository;
+
+    public function __construct(BookingRepository $bookingRepository)
+    {
+        $this->bookingRepository = $bookingRepository;
+    }
+
     public function validate($value, Constraint $constraint)
     {
-        /* @var $constraint App\Validator\NotFull */
+        /* @var $constraint NotFull */
 
         if(!$value instanceof  Booking){
             throw new UnexpectedTypeException();
         }
 
+        $bookingEntries = $this->bookingRepository->countNbOfTicketsPerDay($value->getDateOfVisit());
 
-//        if($value->countNbOfTickets() > 1000){
-//            $this->context->buildViolation($constraint->message)
-//                ->addViolation();
-//        }
+        $remainingEntries = 1000 - $bookingEntries;
+
+        if($value->getNumberOfPeople() > $remainingEntries){
+            $this->context->buildViolation($constraint->message)
+                ->setParameter("NBENTRIES", $remainingEntries)
+                ->atPath('numberOfPeople')
+                ->addViolation();
+
+        }
 
 
     }

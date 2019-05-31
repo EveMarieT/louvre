@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Booking;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\NonUniqueResultException;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
@@ -20,32 +21,23 @@ class BookingRepository extends ServiceEntityRepository
     }
 
 
-//    public function countNbOfTickets()
-//    {
-//        $qb =  $this->createQueryBuilder('b');
-//
-//        $qb->select('sum(b.nbOfPeople)')
-//            ->andWhere('b.nbOfPeople = :nbOfPeople')
-//            ->setParameter('nbOfPeople', $nbOfPeople)
-//            ->orderBy('b.dateOfVisit')
-//            ->getQuery();
-//
-//        return $qb
-//            ->getQuery()
-//            ->getResult();
-//
-//    }
-
-
-    /*
-    public function findOneBySomeField($value): ?Booking
+    /**
+     * @param $dateOfVisit
+     * @return mixed
+     * @throws NonUniqueResultException
+     */
+    public function countNbOfTicketsPerDay($dateOfVisit)
     {
-        return $this->createQueryBuilder('b')
-            ->andWhere('b.exampleField = :val')
-            ->setParameter('val', $value)
+        $qb = $this->createQueryBuilder('b');
+
+        return $qb->select('sum(b.numberOfPeople)')
+            ->andWhere('b.dateOfVisit = :dateOfVisit')
+            ->setParameter('dateOfVisit', $dateOfVisit)
             ->getQuery()
-            ->getOneOrNullResult()
-        ;
+            ->getSingleScalarResult();
+
     }
-    */
+
+
+
 }
