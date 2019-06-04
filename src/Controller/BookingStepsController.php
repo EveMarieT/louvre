@@ -48,7 +48,7 @@ class BookingStepsController extends AbstractController
     /**
      * @Route("/saisir-vos-billets", name="order_step_2")
      */
-    public function index(PriceCalculator $calculator, BookingManager $bookingManager, Request $request)
+    public function fillTickets(PriceCalculator $calculator, BookingManager $bookingManager, Request $request)
     {
 
         $booking = $bookingManager->getCurrentBooking();
@@ -121,7 +121,7 @@ class BookingStepsController extends AbstractController
 
     public function finish(BookingManager $bookingManager, Request $request)
     {
-        $booking = $bookingManager->getCurrentBooking();
+        $booking = $bookingManager->getAndRemoveCurrentBooking();
 
 
         return $this->render('booking/finish.html.twig', array(
