@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Validator\NotAfternoon;
 use App\Validator\NotFull;
 use App\Validator\NotHoliday;
 use App\Validator\NotSunday;
@@ -14,6 +15,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\BookingRepository")
  * @NotFull()
+ * @NotAfternoon()
+ *
  */
 class Booking
 {
@@ -28,6 +31,9 @@ class Booking
     const TYPE_LABEL_DAY = "Journée";
     const TYPE_LABEL_HALF_DAY = "Demi-journée";
     const HALF_DAY_COEFF = 0.5;
+    const TYPE_DAY = true;
+    const TYPE_HALF_DAY = false;
+    const NOT_AFTERNOON_HOUR = 14;
 
     /**
      * @ORM\Id()
@@ -38,6 +44,7 @@ class Booking
 
     /**
      * @ORM\Column(type="datetime")
+     * @Assert\GreaterThanOrEqual("today")
      * @NotTuesday()
      * @NotSunday()
      * @NotHoliday()
