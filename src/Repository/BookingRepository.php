@@ -38,6 +38,4 @@ class BookingRepository extends ServiceEntityRepository
 
     }
 
-
-
 }
