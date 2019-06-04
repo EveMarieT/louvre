@@ -11,11 +11,9 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 class NotTuesdayValidator extends ConstraintValidator
 {
 
-
-
     public function validate($value, Constraint $constraint)
     {
-        /* @var $constraint App\Validator\NotTuesday */
+        /* @var $constraint NotTuesday */
 
         if (!$value instanceof \DateTimeInterface) {
             throw new UnexpectedTypeException($value, \DateTimeInterface::class);
@@ -25,7 +23,6 @@ class NotTuesdayValidator extends ConstraintValidator
         $this->context->buildViolation($constraint->message)
             ->addViolation();
         }
-
 
     }
 }

@@ -11,8 +11,6 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 class NotAfternoonValidator extends ConstraintValidator
 {
 
-
-
     public function validate($booking, Constraint $constraint)
     {
         /* @var $constraint NotAfternoon */
