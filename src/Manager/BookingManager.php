@@ -5,6 +5,7 @@ namespace App\Manager;
 
 use App\Entity\Booking;
 use App\Entity\Ticket;
+use App\Service\PriceCalculator;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -29,10 +30,10 @@ class BookingManager
      */
     public function getCurrentBooking(): Booking
     {
-        $booking = $this->session->get('booking',null);
+        $booking = $this->session->get('booking', null);
 
 
-        if(!$booking){
+        if (!$booking) {
             throw  new NotFoundHttpException("Pas de commande en cours merci de recommencer");
         }
 
@@ -51,6 +52,21 @@ class BookingManager
         for ($i = 0; $i < $booking->getNumberOfPeople(); $i++) {
             $booking->addTicket(new Ticket());
         }
+    }
+
+    public function getAndRemoveCurrentBooking()
+    {
+
+        $booking = $this->getCurrentBooking();
+
+        $this->removeCurrentBooking();
+
+        return $booking;
+    }
+
+    private function removeCurrentBooking()
+    {
+        $this->session->remove('booking');
     }
 
 
