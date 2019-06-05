@@ -131,16 +131,4 @@ class BookingStepsController extends AbstractController
 
     }
 
-    /**
-     * @Route("/registration", name="registration")
-     */
-    public function emailShow(BookingManager $bookingManager , Request $request)
-    {
-
-        $booking = $bookingManager->getCurrentBooking();
-
-        return $this->render('emails/registration.html.twig', [
-            'booking' => $booking,
-        ]);
-    }
 }
