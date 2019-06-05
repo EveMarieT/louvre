@@ -36,7 +36,7 @@ class Booking
     const TYPE_DAY = true;
     const TYPE_HALF_DAY = false;
     const NOT_AFTERNOON_HOUR = 14;
-    const TOO_LATE_HOUR_DAY = 16:30;
+    const TOO_LATE_HOUR_DAY = "16:30";
     const TOO_LATE_HOUR_NIGHT = 20;
 
     /**

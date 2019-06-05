@@ -14,4 +14,10 @@ class NotClosed extends Constraint
      * Then, use these in your validator class.
      */
     public $message = 'Vous ne pouvez pas acheter un billet à cette heure pour le même jour.';
+
+    public function getTargets()
+    {
+        return self::CLASS_CONSTRAINT;
+    }
+
 }
