@@ -7,6 +7,7 @@ use App\Entity\Ticket;
 use App\Entity\Booking;
 use App\Form\BookingType;
 use App\Manager\BookingManager;
+use App\Manager\StripeManager;
 use App\Service\PriceCalculator;
 use App\Service\Mailer;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -75,7 +76,7 @@ class BookingStepsController extends AbstractController
      * @Route("/recapitulatif", name="order_step_3")
      */
 
-    public function summary(BookingManager $bookingManager, Request $request, $stripePrivateKey, Mailer $mailer)
+    public function summary(BookingManager $bookingManager, StripeManager $stripeManager, $stripePrivateKey, Request $request, Mailer $mailer)
     {
 
         $booking = $bookingManager->getCurrentBooking();
@@ -83,16 +84,7 @@ class BookingStepsController extends AbstractController
         if ($request->isMethod('POST')) {
             $token = $request->request->get('stripeToken');
 
-            \Stripe\Stripe::setApiKey($stripePrivateKey);
-
-
-            $token = $_POST['stripeToken'];
-            $charge = \Stripe\Charge::create([
-                'amount' => $booking->getPrice() * 100,
-                'currency' => 'eur',
-                'description' => 'Commande billets',
-                'source' => $token,
-            ]);
+            $charge = $bookingManager->getStripePayment($stripePrivateKey, $booking);
 
             $booking->setReference($charge['id']);
 
