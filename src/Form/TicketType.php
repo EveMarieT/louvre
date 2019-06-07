@@ -26,7 +26,8 @@ class TicketType extends AbstractType
                 'label' => 'Date de naissance'
             ])
             ->add('country', CountryType::class, [
-                'label' => 'Pays'
+                'label' => 'Pays',
+                'data' => 'FR'
             ])
             ->add('reducedPrice', null, [
                 'label' => 'Tarif reduit',
