@@ -20,10 +20,10 @@ class NotClosedValidator extends ConstraintValidator
         }
 
         $date = new \DateTime();
-        $currentHour = (int)$date->format('H:m');
+        $currentHour = $date->format('H:m');
 
-        if ($booking->getPeriod() === Booking::TYPE_DAY || Booking::TYPE_HALF_DAY &&
-            $currentHour >= Booking::TOO_LATE_HOUR_DAY || $currentHour >= Booking::TOO_LATE_HOUR_NIGHT &&
+        if (
+        ($currentHour >= Booking::TOO_LATE_HOUR_DAY || $currentHour >= Booking::TOO_LATE_HOUR_NIGHT) &&
             $date->format('d/m/Y') == $booking->getDateOfVisit()->format('d/m/Y')
         ) {
 
