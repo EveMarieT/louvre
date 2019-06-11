@@ -2,34 +2,39 @@
 
 namespace App\Manager;
 
-use Stripe\Stripe;
-use Stripe\Charge;
-use App\Entity\Booking;
+use Stripe\Error\Card;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class StripeManager
 {
 
-    public function __construct(SessionInterface $session, $stripePrivateKey)
+    public function __construct(RequestStack $requestStack,SessionInterface $session, $stripePrivateKey)
     {
         $this->session = $session;
         $this->stripePrivateKey = $stripePrivateKey;
+        $this->request = $requestStack->getCurrentRequest();
     }
 
 
+    public function pay(string $description, float $amount): ?string
+    {
+        \Stripe\Stripe::setApiKey($this->stripePrivateKey);
 
-//    public function getStripePayment($stripePrivateKey, Booking $booking)
-//    {
-//        \Stripe\Stripe::setApiKey($stripePrivateKey);
-//
-//        $token = $_POST['stripeToken'];
-//        $charge = \Stripe\Charge::create([
-//            'amount' => $booking->getPrice() * 100,
-//            'currency' => 'eur',
-//            'description' => 'Commande billets',
-//            'source' => $token,
-//        ]);
-//
-//        return $charge;
-//    }
+        try{
+
+            $token = $this->request->get('stripeToken');
+            $charge = \Stripe\Charge::create([
+                'amount' => $amount * 100,
+                'currency' => 'eur',
+                'description' => $description,
+                'source' => $token,
+            ]);
+
+        }catch (Card $exception){
+            return null;
+        }
+
+        return $charge['id'];
+    }
 }

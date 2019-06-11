@@ -5,7 +5,9 @@ namespace App\Manager;
 
 use App\Entity\Booking;
 use App\Entity\Ticket;
-use App\Service\PriceCalculator;
+use App\Service\Mailer;
+use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -17,13 +19,26 @@ class BookingManager
      * @var SessionInterface
      */
     private $session;
-    private $stripePrivateKey;
+    /**
+     * @var StripeManager
+     */
+    private $stripeManager;
+    /**
+     * @var EntityManagerInterface
+     */
+    private $entityManager;
+    /**
+     * @var Mailer
+     */
+    private $mailer;
 
-    public function __construct(SessionInterface $session, $stripePrivateKey)
+    public function __construct(SessionInterface $session, StripeManager $stripeManager, EntityManagerInterface $entityManager, Mailer $mailer)
     {
 
         $this->session = $session;
-        $this->stripePrivateKey = $stripePrivateKey;
+        $this->stripeManager = $stripeManager;
+        $this->entityManager = $entityManager;
+        $this->mailer = $mailer;
     }
 
 
@@ -71,19 +86,29 @@ class BookingManager
         $this->session->remove('booking');
     }
 
-    public function getStripePayment($stripePrivateKey, Booking $booking)
+    /**
+     * @param Booking $booking
+     * @return bool
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
+    public function doPayment(Booking $booking)
     {
-        \Stripe\Stripe::setApiKey($stripePrivateKey);
+        $reference = $this->stripeManager->pay("Commmande billets", $booking->getPrice());
 
-        $token = $_POST['stripeToken'];
-        $charge = \Stripe\Charge::create([
-            'amount' => $booking->getPrice() * 100,
-            'currency' => 'eur',
-            'description' => 'Commande billets',
-            'source' => $token,
-        ]);
+        if ($reference) {
+            $booking->setReference($reference);
+            $this->entityManager->persist($booking);
+            $this->entityManager->flush();
 
-        return $charge;
+
+            $this->mailer->sendMessage($booking);
+
+            return true;
+        }
+
+
+        return false;
     }
 
 }

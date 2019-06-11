@@ -74,29 +74,24 @@ class BookingStepsController extends AbstractController
 
     /**
      * @Route("/recapitulatif", name="order_step_3")
+     * @param BookingManager $bookingManager
+     * @param Request $request
+     * @return RedirectResponse|Response
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
      */
 
-    public function summary(BookingManager $bookingManager, StripeManager $stripeManager, $stripePrivateKey, Request $request, Mailer $mailer)
+    public function summary(BookingManager $bookingManager, Request $request)
     {
 
         $booking = $bookingManager->getCurrentBooking();
 
         if ($request->isMethod('POST')) {
-            $token = $request->request->get('stripeToken');
 
-            $charge = $bookingManager->getStripePayment($stripePrivateKey, $booking);
+            if ($bookingManager->doPayment($booking)) {
+                return $this->redirectToRoute('finish');
+            }
 
-            $booking->setReference($charge['id']);
-
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($booking);
-            $em->flush();
-
-
-            $mailer->sendMessage($booking);
-
-
-            return $this->redirectToRoute('finish');
 
         }
 

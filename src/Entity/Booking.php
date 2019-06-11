@@ -17,7 +17,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity(repositoryClass="App\Repository\BookingRepository")
  * @NotFull()
  * @NotAfternoon()
- *
+ * @NotClosed()
  *
  */
 class Booking
@@ -37,7 +37,7 @@ class Booking
     const TYPE_HALF_DAY = false;
     const NOT_AFTERNOON_HOUR = 14;
     const TOO_LATE_HOUR_DAY = "16:30";
-    const TOO_LATE_HOUR_NIGHT = 20;
+    const TOO_LATE_HOUR_NIGHT = "20:00";
 
     /**
      * @ORM\Id()
