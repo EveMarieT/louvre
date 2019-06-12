@@ -3,6 +3,8 @@ namespace  App\Service;
 
 
 use App\Entity\Booking;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Twig\Environment;
 
 
@@ -45,7 +47,10 @@ class Mailer
 
                     $this->twig->render(
                         'emails/registration.html.twig', [
-                            'booking' => $booking]
+                            'booking' => $booking,
+                            'tickets' => $booking->getTickets(),
+                            ]
+
                     ),
                     'text/html'
                 );

@@ -7,7 +7,10 @@
 <p class="py-1"> Nous vous remercions pour votre commande ce courriel fera office de billet d'entrée<br></p>
 <p class="py-2">Pensez bien à vous munir de ce document lors de votre visite.<br>
 
-    Votre visite est prévue le <strong>{{ booking.dateOfVisit|date('d-m-Y') }}</strong></p>
+    Votre visite est prévue le <strong>{{ booking.dateOfVisit|date('d-m-Y') }}</strong> et
+        vous avez commandé {{ booking.numberOfPeople }} billet(s)</p>
+
+<p class="py-2">La référence de votre commande est {{ booking.reference }}</p>
 
 <div class="table-responsive-sm">
     <table class="table table-borderless">
@@ -16,17 +19,25 @@
         <tr>
             <th scope="col"></th>
             <th scope="col">Type de billet</th>
-            <th scope="col">Nombre de billets</th>
-            <th scope="col">Référence</th>
+            <th scope="col">Nom</th>
+            <th scope="col">Prénom</th>
+            <th scope="col">Prix</th>
         </tr>
         </thead>
         <tbody>
+        {% for ticket in booking.tickets %}
         <tr>
             <th scope="row"></th>
+
             <td>{{ booking.periodLabel }}</td>
-            <td>{{ booking.numberOfPeople }}</td>
-            <td>{{ booking.reference }}</td>
+            <td>{{ ticket.name }}</td>
+            <td>{{ ticket.firstName }}</td>
+            <td>{{ ticket.price }}</td>
+            {% if ticket.reducedPrice == true %}
+            <p>Pensez bien à vous munir d'un justificatif pour bénéficier de votre réduction</p>
+            {% endif %}
         </tr>
+        {% endfor %}
 
         </tbody>
 
