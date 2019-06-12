@@ -3,8 +3,6 @@ namespace  App\Service;
 
 
 use App\Entity\Booking;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Twig\Environment;
 
 
