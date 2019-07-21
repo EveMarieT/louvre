@@ -16,14 +16,17 @@ class NotClosedValidator extends ConstraintValidator
         /* @var $constraint NotClosed */
 
         if (!$booking instanceof Booking) {
-            throw new UnexpectedTypeException;
+            throw new UnexpectedTypeException($booking,Booking::class);
         }
 
         $date = new \DateTime();
         $currentHour = $date->format('H:m');
+        $nocturne = in_array($date->format('w'),[4,5]);
+        $limit = ($nocturne) ? Booking::TOO_LATE_HOUR_NIGHT : Booking::TOO_LATE_HOUR_DAY;
+
 
         if (
-        ($currentHour >= Booking::TOO_LATE_HOUR_DAY || $currentHour >= Booking::TOO_LATE_HOUR_NIGHT) &&
+            $currentHour >=  $limit &&
             $date->format('d/m/Y') == $booking->getDateOfVisit()->format('d/m/Y')
         ) {
 
