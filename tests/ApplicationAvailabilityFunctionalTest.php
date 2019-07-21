@@ -14,6 +14,7 @@ class ApplicationAvailabilityFunctionalTest extends WebTestCase
         $client = self::createClient();
         $client->request('GET', $url);
 
+
         $this->assertEquals($client->getResponse()->getStatusCode(), $exceptedStatusCode);
     }
 
