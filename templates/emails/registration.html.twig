@@ -8,14 +8,14 @@
 <p class="py-2">Pensez bien à vous munir de ce document lors de votre visite.<br>
 
     Votre visite est prévue le <strong>{{ booking.dateOfVisit|date('d-m-Y') }}</strong> et
-        vous avez commandé {{ booking.numberOfPeople }} billet(s)</p>
+    vous avez commandé {{ booking.numberOfPeople }} billet(s)</p>
 
 <p class="py-2">La référence de votre commande est {{ booking.reference }}</p>
 
 <div class="table-responsive-sm">
     <table class="table table-borderless">
 
-            <thead>
+        <thead>
         <tr>
             <th scope="col"></th>
             <th scope="col">Type de billet</th>
@@ -25,18 +25,19 @@
         </tr>
         </thead>
         <tbody>
+        {% set containReduce = false %}
         {% for ticket in booking.tickets %}
-        <tr>
-            <th scope="row"></th>
+            <tr>
+                <th scope="row"></th>
 
-            <td>{{ booking.periodLabel }}</td>
-            <td>{{ ticket.name }}</td>
-            <td>{{ ticket.firstName }}</td>
-            <td>{{ ticket.price }}</td>
+                <td>{{ booking.periodLabel }}</td>
+                <td>{{ ticket.name }}</td>
+                <td>{{ ticket.firstName }}</td>
+                <td>{{ ticket.price }}</td>
+            </tr>
             {% if ticket.reducedPrice == true %}
-            <p>Pensez bien à vous munir d'un justificatif pour bénéficier de votre réduction</p>
+                {% set containReduce = true %}
             {% endif %}
-        </tr>
         {% endfor %}
 
         </tbody>
@@ -44,10 +45,15 @@
     </table>
 
 </div>
+{% if containReduce %}
+    <p>
+        Pensez bien à vous munir d'un justificatif pour bénéficier de votre réduction
+    </p>
+{% endif %}
 
 <p>Nous vous souhaitons une agréable visite et nous vous rappelons que :</p><br>
 <p class="pt-1">L'évacuation des salles commence une demie heure avant la fermeture.
-<br>Tout objet d’une taille supérieure à 55 x 35 x 20 cm ne sera pas accepté à
+    <br>Tout objet d’une taille supérieure à 55 x 35 x 20 cm ne sera pas accepté à
     l’entrée de la Pyramide.</p>
 
 
