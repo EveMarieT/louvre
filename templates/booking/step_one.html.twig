@@ -4,21 +4,36 @@
 {% block title %}Commander un billet{% endblock %}
 {% block body %}
     <h1 class="pt-3">Commander votre billet</h1>
-    <div class="row">
+    <div class="row justify-content-center">
         <div class="col-md-8">
+            <div class="form">
+                <div class="step-one">
+                    <span class="align-middle">
+                        Choisissez la date de votre venue, la période, le nombre de personne et laissez nous votre email
+                    </span>
 
-            {{ form_start(form) }}
+                </div>
 
-            {{ form_row(form.dateOfVisit) }}
-            {{ form_row(form.period) }}
-            {{ form_row(form.numberOfPeople) }}
-            {{ form_row(form.email) }}
+                {{ form_start(form) }}
+                <div class="pt-4">
+                    {{ form_row(form.dateOfVisit) }}
+                    {{ form_row(form.period) }}
+                    {{ form_row(form.numberOfPeople) }}
+                    {{ form_row(form.email) }}
+                </div>
 
-            <div class="alert alert-success" role="alert">
-                Le nombre de billets maximum par commande est de 10
+
+
             </div>
 
-            <button type="submit" class="btn btn-dark">Valider</button>
+            <div class="booking-information">
+                <p>
+                    <span class="nbInfo">Le nombre de billets maximum par commande est de 10 </span>
+
+                </p>
+            </div>
+
+            <button type="submit" class="btn btn-dark my-3">Valider</button>
 
             {{ form_end(form) }}
 
