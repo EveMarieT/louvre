@@ -2,16 +2,26 @@
 
 {% block title %}Commander un billet{% endblock %}
 {% block body %}
-<div class="row">
+<div class="row no-gutters">
     <h1 class="pt-3">Commander votre billet</h1>
     <div class="col-md-8">
-        {{ form_start(form) }}
-        {% for formTicket in form.tickets %}
-            <h4>Billet n° {{ loop.index }}</h4>
-            {{ form_widget(formTicket) }}
+        <div class="form">
+            <div class="step-two">
+                <span class="align-middle">
+                    Etape 2/3
+                </span>
+            </div>
+                {{ form_start(form) }}
+            <div class="pt-4">
+                {% for formTicket in form.tickets %}
+                    <h4>Billet n° {{ loop.index }}</h4>
+                    {{ form_widget(formTicket) }}
 
+                {% endfor %}
+            </div>
 
-        {% endfor %}
+        </div>
+
         <button type="submit" class="btn btn-dark">Valider</button>
 
         {{ form_end(form) }}

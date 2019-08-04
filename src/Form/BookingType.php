@@ -26,6 +26,7 @@ class BookingType extends AbstractType
                     Booking::TYPE_LABEL_DAY => Booking::TYPE_DAY,
                     Booking::TYPE_LABEL_HALF_DAY => Booking::TYPE_HALF_DAY,
                 ),
+                'expanded' => true,
             ])
             ->add('numberOfPeople', IntegerType::class, [
                 'label' => 'Nombre de personne',

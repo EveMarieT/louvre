@@ -11,8 +11,6 @@ h1 {
 
 .step-one {
     background: #4e4e4e;
-    width: 770px;
-    height: 60px;
     text-align: center;
     font-size: 20px;
     color: white;
@@ -25,14 +23,12 @@ h1 {
 .booking-information {
     background: #4e4e4e;
     margin-top: 60px;
-    width: 770px;
-    height: 60px;
     text-align: center;
 
 }
 
 .nbInfo  {
-    font-size: 20px;
+    font-size: 21px;
     color: white;
 }
 #order .btn {
@@ -42,12 +38,24 @@ h1 {
 .general-information {
     height: 460px;
     text-align: justify;
-    margin: 0.5em;
-    font-size: 14px;
+    font-size: 16px;
     background-color: #c82d00;
+    color: #f5f5f5;
 }
 
 .logos {
     background-color: #4e4e4e;
+    color: white;
+}
+
+.form-check-input{
+    color: grey;
+    background-color: grey;
+}
+
+.step-two {
+    background: #4e4e4e;
+    text-align: center;
+    font-size: 20px;
     color: white;
 }

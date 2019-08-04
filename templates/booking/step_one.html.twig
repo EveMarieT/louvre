@@ -4,12 +4,12 @@
 {% block title %}Commander un billet{% endblock %}
 {% block body %}
     <h1 class="pt-3">Commander votre billet</h1>
-    <div class="row justify-content-center">
+    <div class="row no-gutters">
         <div class="col-md-8">
             <div class="form">
                 <div class="step-one">
                     <span class="align-middle">
-                        Choisissez la date de votre venue, la période, le nombre de personne et laissez nous votre email
+                        Etape 1/3
                     </span>
 
                 </div>
@@ -17,7 +17,10 @@
                 {{ form_start(form) }}
                 <div class="pt-4">
                     {{ form_row(form.dateOfVisit) }}
+                <div class="radio">
                     {{ form_row(form.period) }}
+                </div>
+
                     {{ form_row(form.numberOfPeople) }}
                     {{ form_row(form.email) }}
                 </div>
