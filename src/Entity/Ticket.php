@@ -3,7 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\TicketRepository")
@@ -19,21 +19,27 @@ class Ticket
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(min="1")
+     * @Assert\Type(type="alpha")
      */
     private $name;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(min="1")
+     * @Assert\Type(type="alpha")
      */
     private $firstName;
 
     /**
      * @ORM\Column(type="datetime")
+     * @Assert\LessThanOrEqual("today")
      */
     private $dateOfBirth;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Country()
      */
     private $country;
 
