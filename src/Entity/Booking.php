@@ -80,6 +80,7 @@ class Booking
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Ticket", mappedBy="booking", orphanRemoval=true, cascade={"persist"})
+     * @Assert\Valid()
      */
     private $tickets;
 
@@ -87,6 +88,11 @@ class Booking
      * @ORM\Column(type="string", length=255)
      */
     private $reference;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $createdAt;
 
     public function __construct()
     {
@@ -208,6 +214,18 @@ class Booking
     public function setReference(string $reference): self
     {
         $this->reference = $reference;
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    {
+        $this->createdAt = $createdAt;
 
         return $this;
     }

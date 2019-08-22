@@ -98,6 +98,7 @@ class BookingManager
 
         if ($reference) {
             $booking->setReference($reference);
+            $booking->setCreatedAt(new \DateTime());
             $this->entityManager->persist($booking);
             $this->entityManager->flush();
 
