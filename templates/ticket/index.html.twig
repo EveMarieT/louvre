@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Commander un billet{% endblock %}
+{% block body %}
+    <h1 class="pt-3">Commander votre billet</h1>
+    <section class="pt-3">
+
+        {{ form_start(form) }}
+
+       {{ form_widget(form) }}
+
+        <button type="submit">Valider</button>
+
+        {{ form_end(form) }}
+
+
+    </section>
+{% endblock %}

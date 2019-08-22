@@ -1,0 +1,79 @@
+<html lang="{{ app.request.locale }}">
+<body>
+
+<img src="{{ cid }}" alt="logo_du_louvre"><br>
+<p class="py-2">Bonjour,<br></p>
+
+<p class="py-1"> Nous vous remercions pour votre commande ce courriel fera office de billet d'entrée<br></p>
+<p class="py-2">Pensez bien à vous munir de ce document lors de votre visite.<br>
+
+    Votre visite est prévue le <strong>{{ booking.dateOfVisit|date('d-m-Y') }}</strong> et
+    vous avez commandé {{ booking.numberOfPeople }} billet(s)</p>
+
+<p class="py-2">La référence de votre commande est {{ booking.reference }}</p>
+
+<div class="table-responsive-sm">
+    <table class="table table-borderless">
+
+        <thead>
+        <tr>
+            <th scope="col"></th>
+            <th scope="col">Commande du</th>
+            <th scope="col">Période</th>
+            <th scope="col">Nom</th>
+            <th scope="col">Prénom</th>
+            <th scope="col">Date de naissance</th>
+            <th scope="col">Email</th>
+            <th scope="col">Pays</th>
+            <th scope="col">Prix</th>
+            <th scope="col">Réduction</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% set containReduce = false %}
+        {% for ticket in booking.tickets %}
+            <tr>
+                <th scope="row"></th>
+
+                <td>{{ booking.createdAt|date('d-m-Y') }}</td>
+                <td>{{ booking.periodLabel }}</td>
+                <td>{{ ticket.name }}</td>
+                <td>{{ ticket.firstName }}</td>
+                <td>{{ ticket.dateOfBirth|date('d-m-Y') }}</td>
+                <td>{{ booking.email }}</td>
+                <td>{{ ticket.country }}</td>
+                <td>{{ ticket.price }}</td>
+                <td> {% if ticket.reducedPrice == true %}
+                        <p>Oui</p>
+                    {% else %}
+                        <p>Non</p>
+
+                    {% endif %}</td>
+            </tr>
+            {% if ticket.reducedPrice == true %}
+                {% set containReduce = true %}
+            {% endif %}
+        {% endfor %}
+
+
+        </tbody>
+
+    </table>
+
+</div>
+{% if containReduce %}
+    <p>
+        Pensez bien à vous munir d'un justificatif pour bénéficier de votre réduction
+    </p>
+{% endif %}
+
+<p>Nous vous souhaitons une agréable visite et nous vous rappelons que :</p><br>
+<p class="pt-1">L'évacuation des salles commence une demie heure avant la fermeture.
+    <br>Tout objet d’une taille supérieure à 55 x 35 x 20 cm ne sera pas accepté à
+    l’entrée de la Pyramide.</p>
+
+
+</body>
+</html>
+
+

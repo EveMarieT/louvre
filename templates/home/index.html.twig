@@ -1,0 +1,112 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Billetterie du Louvre{% endblock %}
+
+
+
+{% block body %}
+
+    <h1 class="pt-2">Bienvenue sur le site de la billetterie du Louvre</h1>
+
+<div id="carouselExampleSlidesOnly" class="carousel slide pt-5" data-ride="carousel">
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <img src="{{ asset('img/louvre-1867919_640.jpg') }}" class="d-block w-100" alt="...">
+        </div>
+    </div>
+</div>
+
+    <div class="row mx-md-n5 pt-5">
+        <div class="col px-md-5">
+
+            <ul class="list-unstyled">
+                <li><p class="font-weight-bold"><u>Le musée est ouvert tous les jours excepté les :</u></p>
+                    <ul>
+                        <li>mardis</li>
+                        <li>1er mai</li>
+                        <li>1er novembre</li>
+                        <li>25 décembre</li>
+                    </ul>
+                </li>
+            </ul>
+
+        </div>
+        <div class="col px-md-5">
+
+            <ul class="list-unstyled">
+                <li><p class="font-weight-bold"><u>Horaires d'ouverture :</p></u>
+                    <ul>
+                        <li>les lundis, mercredis, samedis et dimanches :</li>
+                        <li>de 9h à 18h -
+                            <small><em class="text-muted">Fermeture des salles à 17h30</em></small>
+                        </li>
+                        <li>les jeudis et vendredis :</li>
+                        <li>de 9h à 21h45 -
+                            <small><em class="text-muted">Fermeture des salles à 21h30</em></small>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+
+    <p class="pt-2 font-weight-bold">Les tarifs :</p>
+    <div class="row">
+        <div class="col-sm-8 offset-sm-2">
+            <div class="table-responsive">
+                <table class="table table-bordered table-sm">
+                    <thead>
+                    <tr>
+                        <th scope="col"></th>
+                        <th scope="col">Normal</th>
+                        <th scope="col">Enfant</th>
+                        <th scope="col">Senior</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <th scope="row">Journée</th>
+                        <td>16 €</td>
+                        <td>8 €</td>
+                        <td>12 €</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Demi-journée</th>
+                        <td>8 €</td>
+                        <td>4 €</td>
+                        <td>6 €</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <dl class="row">
+        <dt class="col-sm-3">Normal :</dt>
+        <dd class="col-sm-9">Adulte à partir de 12 ans.</dd>
+
+        <dt class="col-sm-3">Enfant :</dt>
+        <dd class="col-sm-9">
+            <p>Enfant à partir de 4 ans et jusqu'à 12 ans.</p>
+            <p class="font-italic small">L'entrée est gratuite pour les enfants de moins de 4 ans.</p>
+        </dd>
+
+        <dt class="col-sm-3">Senior :</dt>
+        <dd class="col-sm-9">Adulte à partir de 60 ans.</dd>
+
+        <dt class="col-sm-3">Tarif réduit :</dt>
+        <dd class="col-sm-9">
+            <p>Une réduction de 10€ est accordée dans certaines conditions(étudiant, employé du musée, d'un service du
+                Ministère de la Culture, militaire....)</p>
+            <p class="font-italic small">Un justificatif sera demandée lors de votre visite pour valider le tarif
+                réduit.</p>
+        </dd>
+
+    </dl>
+
+    <div id="order" class="row py-3">
+        <a href="{{ path ('order_step_1') }}" class="btn btn-secondary btn-lg btn-block active" role="button" aria-pressed="true">Acheter vos billets</a>
+    </div>
+{% endblock %}

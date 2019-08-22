@@ -1,0 +1,65 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Billetterie du Louvre{% endblock %}
+
+
+
+{% block body %}
+
+
+    <div>
+        <h1>Contact</h1>
+        <p>Prenez soin d'identifier l'interlocuteur le mieux adapté, votre demande n'en sera que mieux traitée !</p>
+    </div>
+    <div class="row no-gutters">
+        <div class="col-md-8">
+            <ul class="generalInfo">
+                <li>
+                    <p>En cas de problèmes pour imprimer votre e-ticket,</p>
+                    <p>- Consultez la <a href="https://www.ticketlouvre.fr/louvre/b2c/index.cfm/FAQ"
+                                         rel="nofollow">FAQ</a></p>
+                    <p>- Contactez nous : <a href="mailto:assistance-billetterie@assistance.fr" rel="nofollow">assistance-billetterie@louvre.fr</a>
+                    </p>
+                </li>
+                <li>
+                    <p><span style="font-size:16px"><strong>Informations générales</strong></span><br> <br> Pour obtenir
+                        des informations sur le musée, les services à votre disposition<br> et notre actualité, l'équipe
+                        du service de l'accueil est à votre disposition :</p>
+                </li>
+                <li>
+                    <p>Banque d'information du musée&nbsp;:<br> Tél. : +33 (0)1 10 20 30 40<br> Tous les jours, sauf le
+                        mardi, de 9h à 18h30 (21h30 les mercredis et vendredis).<br> <a href="mailto:info@louvre.fr"
+                                                                                        rel="nofollow">news@louvre.fr</a>
+                    </p>
+                </li>
+                <li>
+                    <p>Préparez votre visite&nbsp;:<br> <a href="http://www.louvre.fr/preparer-sa-visite"
+                                                           rel="nofollow">http://www.louvre.fr/preparer-sa-visite</a>
+                    </p>
+                </li>
+                <li class="last">
+                    <p>Consultez le plan interactif du Louvre&nbsp;:<br> <a href="http://www.louvre.fr/plan"
+                                                                            rel="nofollow">http://www.louvre.fr/plan</a>
+                    </p>
+                </li>
+
+
+            </ul>
+            <ul>
+                <li class="last">
+                    <p>Information handicap :<br> Tél. : +33 (0)1 40 20 59 90<br> <a href="mailto:handicap@louvre.fr"
+                                                                                     rel="nofollow">handicap@assistance.fr</a>
+                    </p>
+                </li>
+            </ul>
+        </div>
+
+            {% include 'ticket/useful_information.html.twig' %}
+    </div>
+
+
+
+
+
+
+{% endblock %}

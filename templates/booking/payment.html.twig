@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Commander un billet{% endblock %}
+
+{% block body %}
+    <div class="nav-space-checkout">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <h1 class="checkout-header">Finaliser votre commande</h1>
+                </div>
+
+                <div class="col-xs-12 col-sm-6">
+                    <table class="table table-bordered">
+
+                        <thead>
+                        <tr>
+                            <th class="col-xs-6 active">Nom Prénom</th>
+                            <th class="col-xs-3 active text-center">Prix</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for ticket in booking.tickets %}
+                            <tr>
+                                <th class="col-xs-6 checkout-product-name">{{ ticket.name }} {{ ticket.firstName }}</th>
+                                <td class="col-xs-3">${{ ticket.price }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                        <tfoot>
+                        <tr>
+                            <th class="col-xs-6 info">Total</th>
+                            <td class="col-xs-3 info checkout-total">€{{ booking.price }}</td>
+                        </tr>
+                        </tfoot>
+                    </table>
+                </div>
+                <div class="col-xs-12 col-sm-6">
+
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+

@@ -1,0 +1,98 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Commander un billet{% endblock %}
+{% block body %}
+
+<h1 class="pt-3">Récapitulatif de votre commande</h1>
+    <div class="step-two">
+        <span class="align-middle">
+            Etape 3/3
+        </span>
+    </div>
+<section class="pt-3">
+
+    Vous avez commandé le(s) billet(s) suivant(s) :
+
+    <p>Votre visite aura lieu le {{ booking.dateOfVisit| date('d-m-Y') }}
+        et vos billets sont valables pour la {{ booking.periodLabel }}</p>
+
+    <div class="table-responsive-sm">
+
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th scope="col"></th>
+                <th scope="col">Commande du</th>
+                <th scope="col">Nom</th>
+                <th scope="col">Prénom</th>
+                <th scope="col">Date de naissance</th>
+                <th scope="col">Email</th>
+                <th scope="col">Pays</th>
+                <th scope="col">Prix</th>
+                <th scope="col">Réduction</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for ticket in booking.tickets %}
+            <tr>
+                <th scope="row">
+                    {% for numberOfPeople in booking.numberOfPeople %}
+                    {{ numberOfPeople }}
+                    {% endfor %}</th>
+                <td>{{ booking.createdAt|date('d-m-Y') }}</td>
+                <td>{{ ticket.name }}</td>
+                <td>{{ ticket.firstName }}</td>
+                <td>{{ ticket.dateOfBirth|date('d-m-Y') }}</td>
+                <td>{{ booking.email }}</td>
+                <td>{{ ticket.country }}</td>
+                <td>{{ ticket.price }}</td>
+                <td> {% if ticket.reducedPrice == true %}
+                        <p>Oui</p>
+                        {% else %}
+                        <p>Non</p>
+
+                    {% endif %}</td>
+
+            </tr>
+            {% endfor %}
+            <tr>
+
+            </tbody>
+        </table>
+
+    </div>
+
+
+    <div class="alert alert-success" role="alert">
+        Le montant de votre commande s'élève à {{ booking.price }} €
+    </div>
+
+
+    <div class="col-4">
+        <form action="" method="POST">
+            <script
+                    src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                    data-key="pk_test_ZRJFa0Zmp708tIkrvO4pqUn400kwyrqAW3"
+                    data-amount="{{ booking.price * 100 }}"
+                    data-name="Billetterie du Louvre"
+                    data-description="Projet 4"
+                    data-email="{{ booking.email }}"
+                    data-image="{{ asset('img/logo_Louvre.png') }}"
+                    data-currency="EUR"
+                    data-locale="auto">
+            </script>
+        </form>
+    </div>
+    <div class="col-md-4">
+        <div class="go-back">
+            <div id="order" class="row py-3">
+                <a href="{{ path ('order_step_2') }}" class="btn btn-secondary btn-lg btn-block active" role="button"
+                   aria-pressed="true">Revenir à l'étape précédente</a>
+            </div>
+        </div>
+    </div>
+
+
+
+</section>
+{% endblock %}

@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Commander un billet{% endblock %}
+{% block body %}
+<div class="row no-gutters">
+    <h1 class="pt-3">Commander votre billet</h1>
+    <div class="col-md-8">
+        <div class="form">
+            <div class="step-two">
+                <span class="align-middle">
+                    Etape 2/3
+                </span>
+            </div>
+                {{ form_start(form) }}
+            <div class="pt-4">
+                {% for formTicket in form.tickets %}
+                    <h4>Billet n° {{ loop.index }}</h4>
+                    {{ form_widget(formTicket) }}
+
+                {% endfor %}
+            </div>
+
+        </div>
+
+        <button type="submit" class="btn btn-dark">Valider</button>
+
+        {{ form_end(form) }}
+    </div>
+
+
+    {% include 'ticket/useful_information.html.twig' %}
+
+    <div class="col-md-4">
+        <div class="go-back">
+            <div id="order" class="row py-3">
+                <a href="{{ path ('order_step_1') }}" class="btn btn-secondary btn-lg btn-block active" role="button"
+                   aria-pressed="true">Revenir à l'étape précédente</a>
+            </div>
+        </div>
+    </div>
+
+
+
+</div>
+{% endblock %}
