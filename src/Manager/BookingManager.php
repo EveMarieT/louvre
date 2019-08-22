@@ -6,7 +6,6 @@ namespace App\Manager;
 use App\Entity\Booking;
 use App\Entity\Ticket;
 use App\Service\Mailer;
-use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
