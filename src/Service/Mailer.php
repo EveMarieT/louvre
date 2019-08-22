@@ -35,7 +35,7 @@ class Mailer
     public function sendMessage(Booking $booking)
     {
         $message = new \Swift_Message("Votre réservation pour le musée");
-
+        $cid = $message->embed(\Swift_Image::fromPath('img/logo_Louvre.png'));
 
         try {
             $message
@@ -46,6 +46,7 @@ class Mailer
                     $this->twig->render(
                         'emails/registration.html.twig', [
                             'booking' => $booking,
+                            'cid' => $cid,
                             'tickets' => $booking->getTickets(),
                             ]
 
