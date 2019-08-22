@@ -17,17 +17,13 @@
                 {{ form_start(form) }}
                 <div class="pt-4">
                     {{ form_row(form.dateOfVisit) }}
-                <div class="radio">
-                    {{ form_row(form.period) }}
-                </div>
+                    <div class="radio">
+                        {{ form_row(form.period) }}
+                    </div>
 
                     {{ form_row(form.numberOfPeople) }}
                     {{ form_row(form.email) }}
                 </div>
-
-
-
-            </div>
 
             <div class="booking-information">
                 <p>
@@ -39,10 +35,11 @@
             <button type="submit" class="btn btn-dark my-3">Valider</button>
 
             {{ form_end(form) }}
+            </div>
 
         </div>
 
-            {% include 'ticket/useful_information.html.twig' %}
+        {% include 'ticket/useful_information.html.twig' %}
 
     </div>
 

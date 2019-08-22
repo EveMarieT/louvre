@@ -37,8 +37,6 @@ h1 {
 
 .general-information {
     height: 460px;
-    text-align: justify;
-    font-size: 16px;
     background-color: #c82d00;
     color: #f5f5f5;
 }
@@ -48,7 +46,7 @@ h1 {
     color: white;
 }
 
-.form-check-input{
+.form-check-input:checked {
     color: grey;
     background-color: grey;
 }

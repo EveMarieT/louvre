@@ -27,7 +27,18 @@
         {{ form_end(form) }}
     </div>
 
+
     {% include 'ticket/useful_information.html.twig' %}
+
+    <div class="col-md-4">
+        <div class="go-back">
+            <div id="order" class="row py-3">
+                <a href="{{ path ('order_step_1') }}" class="btn btn-secondary btn-lg btn-block active" role="button"
+                   aria-pressed="true">Revenir à l'étape précédente</a>
+            </div>
+        </div>
+    </div>
+
 
 
 </div>

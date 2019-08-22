@@ -1,7 +1,7 @@
 <html lang="{{ app.request.locale }}">
 <body>
 
-<img src="{{ asset('img/logo_Louvre.png') }}" alt="logo_du_louvre"><br>
+<img src="{{ cid }}" alt="logo_du_louvre"><br>
 <p class="py-2">Bonjour,<br></p>
 
 <p class="py-1"> Nous vous remercions pour votre commande ce courriel fera office de billet d'entrée<br></p>
@@ -18,10 +18,15 @@
         <thead>
         <tr>
             <th scope="col"></th>
-            <th scope="col">Type de billet</th>
+            <th scope="col">Commande du</th>
+            <th scope="col">Période</th>
             <th scope="col">Nom</th>
             <th scope="col">Prénom</th>
+            <th scope="col">Date de naissance</th>
+            <th scope="col">Email</th>
+            <th scope="col">Pays</th>
             <th scope="col">Prix</th>
+            <th scope="col">Réduction</th>
         </tr>
         </thead>
         <tbody>
@@ -30,15 +35,26 @@
             <tr>
                 <th scope="row"></th>
 
+                <td>{{ booking.createdAt|date('d-m-Y') }}</td>
                 <td>{{ booking.periodLabel }}</td>
                 <td>{{ ticket.name }}</td>
                 <td>{{ ticket.firstName }}</td>
+                <td>{{ ticket.dateOfBirth|date('d-m-Y') }}</td>
+                <td>{{ booking.email }}</td>
+                <td>{{ ticket.country }}</td>
                 <td>{{ ticket.price }}</td>
+                <td> {% if ticket.reducedPrice == true %}
+                        <p>Oui</p>
+                    {% else %}
+                        <p>Non</p>
+
+                    {% endif %}</td>
             </tr>
             {% if ticket.reducedPrice == true %}
                 {% set containReduce = true %}
             {% endif %}
         {% endfor %}
+
 
         </tbody>
 
