@@ -9,9 +9,8 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
 class StripeManager
 {
 
-    public function __construct(RequestStack $requestStack,SessionInterface $session, $stripePrivateKey)
+    public function __construct(RequestStack $requestStack, $stripePrivateKey)
     {
-        $this->session = $session;
         $this->stripePrivateKey = $stripePrivateKey;
         $this->request = $requestStack->getCurrentRequest();
     }
