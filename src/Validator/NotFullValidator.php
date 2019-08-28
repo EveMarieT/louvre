@@ -31,7 +31,7 @@ class NotFullValidator extends ConstraintValidator
 
         $bookingEntries = $this->bookingRepository->countNbOfTicketsPerDay($value->getDateOfVisit());
 
-        $remainingEntries = 1000 - $bookingEntries;
+        $remainingEntries = Booking::MAX_PER_DAY - $bookingEntries;
 
         if($value->getNumberOfPeople() > $remainingEntries){
             $this->context->buildViolation($constraint->message)

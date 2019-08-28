@@ -8,6 +8,12 @@ use App\Entity\Ticket;
 
 class PriceCalculator
 {
+
+
+    const AGE_CHILD = 4;
+    const AGE_ADULT = 12;
+    const AGE_SENIOR = 60;
+
     public function computeBookingPrice(Booking $booking)
     {
         $totalPrice = 0;
@@ -28,23 +34,16 @@ class PriceCalculator
     public function computeTicketPrice(Ticket $ticket) :int
     {
 
-        // selon l'âge tel tarif s'applique
-        $price = 0;
+
         $age = $ticket->getAge();
-        $free = $age < 4;
-        $child = $age >= 4 && $age < 12;
-        $normal = $age >=12 && $age < 60;
-        $senior = $age >= 60;
 
-        $period = $ticket->getBooking()->getPeriodLabel();
-
-        if ($free) {
+        if ($age < self::AGE_CHILD) {
             $price = Booking::FREE;
-        } elseif ($child ) {
+        } elseif ($age < self::AGE_ADULT ) {
             $price = Booking::CHILD_DAY;
-        } elseif($normal){
+        } elseif($age < self::AGE_SENIOR){
             $price = Booking::NORMAL_DAY;
-        }  elseif ($senior) {
+        }  else {
             $price = Booking::SENIOR_DAY;
         }
 
@@ -54,7 +53,7 @@ class PriceCalculator
         }
 
 
-        if($period === Booking::TYPE_LABEL_HALF_DAY){
+        if($ticket->getBooking()->getPeriodLabel() === Booking::TYPE_LABEL_HALF_DAY){
             $price = $price * Booking::HALF_DAY_COEFF;
         }
         $ticket->setPrice($price);

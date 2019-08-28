@@ -38,6 +38,7 @@ class Booking
     const NOT_AFTERNOON_HOUR = 14;
     const TOO_LATE_HOUR_DAY = "16:30";
     const TOO_LATE_HOUR_NIGHT = "20:00";
+    const MAX_PER_DAY = 1000;
 
     /**
      * @ORM\Id()
